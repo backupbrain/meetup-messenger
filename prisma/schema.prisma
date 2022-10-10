@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(uuid())
+  email          String   @unique
+  hashedPassword String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// let's create a list of activities and locations
+// then we can enumerate groups that are related to activities and locations
+
+model Activity {
+  id        String   @id @default(uuid())
+  name      String
+  groups    Group[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Location {
+  id        String   @id @default(uuid())
+  name      String
+  groups    Group[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Group {
+  id                String           @id @default(uuid())
+  url               String
+  name              String
+  description       String
+  fullDescription   String?
+  pageNumber        Int?
+  rowNumber         Int?
+  numMembers        Int
+  isPublic          Boolean
+  numPastEvents     Int?
+  numUpcomingEvents Int?
+  initialMessage    String?
+  activityId        String
+  activity          Activity         @relation(fields: [activityId], references: [id])
+  locationId        String
+  location          Location         @relation(fields: [locationId], references: [id])
+  organizers        GroupOrganizer[]
+  GroupEvent        GroupEvent[]
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+}
+
+model GroupOrganizer {
+  id          String   @id @default(uuid())
+  url         String
+  name        String
+  firstName   String?
+  middleNames String?
+  lastName    String?
+  groupId     String
+  group       Group    @relation(fields: [groupId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GroupEvent {
+  id           String   @id @default(uuid())
+  url          String
+  name         String
+  date         DateTime
+  location     String?
+  groupId      String
+  group        Group    @relation(fields: [groupId], references: [id])
+  numAttendees Int?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

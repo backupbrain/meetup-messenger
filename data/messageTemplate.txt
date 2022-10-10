@@ -1,0 +1,7 @@
+Hi {organizerFirstName},
+
+I'm Tony, a developer in Vienna who's been working on an open-source login system that uses cryptography to eliminate the need to send passwords from the client to the server. This system is called "OPAQUE-KE" and is being implemented by Facebook and Cloudflare.
+
+I would love to share what I've been working on with the {groupName} group. It's actually a lot simpler to implement than it sounds.
+
+Would you be interested in me presenting this topic at your meetup?
