@@ -4,7 +4,6 @@ import { loginWithFacebook } from "./utils/automation/loginWithFacebook";
 import { search } from "./utils/automation/search";
 import { startBrowser } from "./utils/automation/startBrowser";
 import { prisma } from "./utils/database/client";
-import { getMessageTemplate } from "./utils/getMessageTemplate";
 
 let messageTemplateFile = "data/messageTemplate.txt";
 
@@ -26,9 +25,9 @@ let activity = await prisma.activity.create({
 /* Subsequent search */
 let hasSearchResults = await search(driver, theme, location);
 
-let messageTemplate = await getMessageTemplate(messageTemplateFile);
+// let messageTemplate = await getMessageTemplate(messageTemplateFile);
 if (hasSearchResults) {
-  await getResultCards(driver, activity.id, messageTemplate);
+  await getResultCards(driver, activity.id);
 }
 
 let result = results[0];
