@@ -46,6 +46,8 @@ model Group {
   pageNumber        Int?
   rowNumber         Int?
   numMembers        Int
+  organizersUrl     String?
+  membersUrl        String?
   isPublic          Boolean
   numPastEvents     Int?
   numUpcomingEvents Int?

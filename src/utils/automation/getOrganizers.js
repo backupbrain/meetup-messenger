@@ -1,6 +1,5 @@
 const { By } = require("selenium-webdriver");
 import { delaySeconds } from "../delaySeconds";
-import { scrollIntoView } from "../scrollIntoView";
 
 export let getOrganizers = async (driver, groupId) => {
   const organizerCards = await driver.findElements(
@@ -10,7 +9,9 @@ export let getOrganizers = async (driver, groupId) => {
   );
   const organizers = [];
   for (let organizerCard of organizerCards) {
-    let link = await organizerCard.findElement(By.xpath(".//a"));
+    let link = await organizerCard.findElement(
+      By.xpath('.//a[contains(@class, "orgInfo-message")]')
+    );
     await scrollIntoView(link, driver);
     let url = await link.getAttribute("href");
     let nameDiv = await organizerCard.findElement(

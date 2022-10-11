@@ -1,13 +1,11 @@
 const { By } = require("selenium-webdriver");
-import { buildMessage } from "../buildMessage";
 import { prisma } from "../database/client";
 import { scrollIntoView } from "../scrollIntoView";
 import { getGroupDetails } from "./getGroupDetails";
 import { getResultCardData } from "./getResultCardData";
-import { messageOrganizer } from "./messageOrganizer";
 import { wereResultsFound } from "./wereResultsFound";
 
-export let getResultCards = async (driver, activityId, messageTemplate) => {
+export let getResultCards = async (driver, activityId) => {
   let hasResults = await wereResultsFound(driver);
   if (!hasResults) {
     return;
@@ -42,7 +40,7 @@ export let getResultCards = async (driver, activityId, messageTemplate) => {
     // await result.sendKeys(controlClick);
     await delaySeconds(3, 5);
     const groupDetails = await getGroupDetails(driver, group.id);
-    const initialMessage = await buildMessage(group, messageTemplate);
+    // const initialMessage = await buildMessage(group, messageTemplate);
     await prisma.group.update({
       where: { id: group.id },
       data: {
@@ -52,7 +50,7 @@ export let getResultCards = async (driver, activityId, messageTemplate) => {
         initialMessage,
       },
     });
-    await messageOrganizer(driver, initialMessage);
+    // await messageOrganizer(driver, initialMessage);
     await driver.navigate().back();
     await delaySeconds(3, 5);
     currentRow += 1;
