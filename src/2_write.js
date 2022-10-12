@@ -6,7 +6,7 @@ const { buildMessages } = require("./utils/buildMessages");
 
 let messageTemplate = await getMessageTemplate();
 
-let locationName = "Vienna, At";
+let locationName = "Vienna, AT";
 let activityName = "javascript";
 
 let location = await getLocation(locationName);
