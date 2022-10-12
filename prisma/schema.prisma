@@ -58,7 +58,7 @@ model Group {
   locationId        String
   location          Location         @relation(fields: [locationId], references: [id])
   organizers        GroupOrganizer[]
-  GroupEvent        GroupEvent[]
+  groupEvent        GroupEvent[]
   createdAt         DateTime         @default(now())
   updatedAt         DateTime         @updatedAt
 }

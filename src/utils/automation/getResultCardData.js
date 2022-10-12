@@ -2,7 +2,7 @@ import { By } from "selenium-webdriver";
 import "../toProperCase";
 
 export let getResultCardData = async (result) => {
-  let url = await result.getAttribute("href");
+  // let url = await result.getAttribute("href");
   let name = await result.findElement(By.xpath(".//h3")).getText();
   let location = await result.findElement(By.xpath(".//h3[2]")).getText();
   location = location.toProperCase();
@@ -41,7 +41,7 @@ export let getResultCardData = async (result) => {
   }
 
   const data = {
-    url,
+    // url,
     name,
     organizersUrl,
     membersUrl,

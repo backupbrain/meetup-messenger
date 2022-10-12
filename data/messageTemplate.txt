@@ -1,18 +1,12 @@
 Hi {organizerFirstName},
 
-I'm Tony, a developer in Vienna who's been working on an open-source login system that uses cryptography to eliminate the need to send passwords from the client to the server. This system is called "OPAQUE-KE" and is being implemented by Facebook and Cloudflare.
+I'm a developer who's been working on an open-source login system called OPAQUE-KE. It uses encryption to eliminate the need to send passwords from client to server, or for the server to store user passwords. This technology is being implemented by Facebook and Cloudflare among others.
 
-I would love to share what I've been working on with the {groupName} group. It's actually a lot simpler to implement than it sounds.
+Password leaks are obviously a major problem in the software industry, so I think your attendees would love to learn how to eliminate this threat entirely from their work.
 
-Would you be interested in me presenting this topic at your meetup?
+I have a presentation that I would love to share, which shows at a high level how the new system works, plus a GitHub link to see a code implementation.
 
-==========
+Would you be interested in me presenting this topic at an upcoming {groupName} event?
 
-Hi {organizerFirstName}
-
-I'm Tony. I've been a
-
-This topic would be invaluable to your attendees because password hacking is a big pain point for anyone who uses the Internet.
-
-Industry is super competitive and its through new knowledge that people can up-level their skills.
-
+Cheers
+Tony
