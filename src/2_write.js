@@ -25,7 +25,7 @@ let groups = await prisma.group.findMany({
 });
 
 // TODO: loop through groups
-let group = groups[0];
+// let group = groups[0];
 for (let group of groups) {
   let initialMessage = await buildMessage(group, messageTemplate);
   // let groupDescription = group.fullDescription || group.description;
