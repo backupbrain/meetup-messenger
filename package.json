@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^4.4.0",
+    "chromedriver": "^106.0.0",
     "selenium": "^2.20.0",
     "selenium-webdriver": "^4.5.0"
   },

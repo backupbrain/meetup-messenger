@@ -1,7 +1,10 @@
 import { delaySeconds } from "../delaySeconds";
 import { scrollIntoView } from "../scrollIntoView";
+import { switchToGroupsTab } from "../switchToGroupsTab";
 import { typeIntoCombobox } from "../typeIntoCombobox";
 import { typeIntoElement } from "../typeIntoElement";
+import { selectCategory } from "./selectCategory";
+import { selectDistance } from "./selectDistance";
 
 export let searchFromHome = async (driver, theme, location) => {
   let activitySearchInput = await driver.findElement(
@@ -26,5 +29,8 @@ export let searchFromHome = async (driver, theme, location) => {
   if (!didFindLocation) {
     return false;
   }
+  await switchToGroupsTab(driver);
+  await selectDistance(driver, 10);
+  await selectCategory(driver, "Technology");
   return true;
 };

@@ -20,7 +20,10 @@ export let getOrganizers = async (driver, groupId) => {
     let fullName = await nameDiv.getText();
     let names = fullName.split(" ");
     let firstName = names[0];
-    let lastName = names[names.length - 1];
+    let lastName = undefined;
+    if (names.length > 1) {
+      lastName = names[names.length - 1];
+    }
     organizers.push({
       groupId,
       url,

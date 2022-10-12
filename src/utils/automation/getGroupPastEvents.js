@@ -3,33 +3,47 @@ import { delaySeconds } from "../delaySeconds";
 import { scrollIntoView } from "../scrollIntoView";
 
 export let getGroupPastEvents = async (driver, groupId) => {
-  const pastEventCards = await driver.findElements(
+  const eventCards = await driver.findElements(
     By.xpath(
-      '//div[contains(@class,"groupHome-eventsList-pastEvents")]//div[contains(@class,"card")]'
+      '//div[contains(@class,"groupHome-eventsList-pastEvents")]//div[contains(@class,"eventCard")]'
     )
   );
   const pastEvents = [];
-  for (let pastEventCard of pastEventCards) {
-    let link = await pastEventCard.findElement(
-      By.xpath('.//a[contains(@class,"eventCard--link")]')
-    );
+  for (let eventCard of eventCards) {
+    let isVisible = await eventCard.isDisplayed();
+    if (!isVisible) {
+      continue;
+    }
+    let link = undefined;
+    try {
+      link = await eventCard.findElement(
+        By.xpath('.//a[contains(@class,"eventCard--link")]')
+      );
+    } catch (error) {
+      continue;
+    }
     await scrollIntoView(link, driver);
     let url = await link.getAttribute("href");
-    let dateDiv = await pastEventCard.findElement(By.xpath(".//time"));
+    let dateDiv = await eventCard.findElement(By.xpath(".//time"));
     await scrollIntoView(dateDiv, driver);
     let dateTimestamp = await dateDiv.getAttribute("datetime");
     let date = new Date(parseInt(dateTimestamp));
-    let nameDiv = await pastEventCard.findElement(
+    let nameDiv = await eventCard.findElement(
       By.xpath('.//div[contains(@class,"text--sectionTitle")]/a')
     );
     await scrollIntoView(nameDiv, driver);
     let name = await nameDiv.getText();
-    let locationDiv = await pastEventCard.findElement(
+    let locationDiv = await eventCard.findElement(
       By.xpath('.//*[contains(@class,"venueDisplay")]')
     );
-    await scrollIntoView(locationDiv, driver);
-    let location = await locationDiv.getText();
-    let attendeesItems = await pastEventCard.findElements(
+    let location = "Online";
+    try {
+      await scrollIntoView(locationDiv, driver);
+      location = await locationDiv.getText();
+    } catch (error) {
+      // do nothing
+    }
+    let attendeesItems = await eventCard.findElements(
       By.xpath('.//ul[contains(@class,"eventCard--attendeesLink")]/li')
     );
     let numAttendees = attendeesItems.length;
@@ -38,6 +52,9 @@ export let getGroupPastEvents = async (driver, groupId) => {
         attendeesItems.length - 1
       ].getText();
       numAttendees = parseInt(additionalAttendeesCount.substring(1)) + 3;
+    }
+    if (isNaN(numAttendees)) {
+      numAttendees = 0;
     }
     pastEvents.push({
       groupId,

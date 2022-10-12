@@ -19,8 +19,8 @@ export let getGroupDetails = async (driver, groupId) => {
   }
   const description = descriptions.join("\n");
   const organizers = await getOrganizers(driver, groupId);
-  const pastEvents = await getGroupPastEvents(driver, groupId);
   const upcomingEvents = await getGroupUpcomingEvents(driver, groupId);
+  const pastEvents = await getGroupPastEvents(driver, groupId);
   let numPastEvents = 0;
   try {
     let numPastEventsSpan = await driver.findElement(
@@ -36,6 +36,9 @@ export let getGroupDetails = async (driver, groupId) => {
   } catch (error) {
     // do nothing
   }
+  if (isNaN(numPastEvents)) {
+    numPastEvents = 0;
+  }
   let numUpcomingEvents = 0;
   try {
     let numUpcomingEventsSpan = await driver.findElement(
@@ -50,6 +53,9 @@ export let getGroupDetails = async (driver, groupId) => {
     );
   } catch (error) {
     // do nothing
+  }
+  if (isNaN(numUpcomingEvents)) {
+    numUpcomingEvents = 0;
   }
   const now = new Date();
   const existingPastEvents = await prisma.groupEvent.findFirst({

@@ -5,14 +5,23 @@ import { scrollIntoView } from "../scrollIntoView";
 export let getGroupUpcomingEvents = async (driver, groupId) => {
   const eventCards = await driver.findElements(
     By.xpath(
-      '//div[contains(@class,"groupHome-eventsList-upcomingEvents")]//div[contains(@class,"card")]'
+      '//div[contains(@class,"groupHome-eventsList-upcomingEvents")]//div[contains(@class,"eventCard")]'
     )
   );
   const upcomingEvents = [];
   for (let eventCard of eventCards) {
-    let link = await eventCard.findElement(
-      By.xpath('.//a[contains(@class,"eventCard--link")]')
-    );
+    let isVisible = await eventCard.isDisplayed();
+    if (!isVisible) {
+      continue;
+    }
+    let link = undefined;
+    try {
+      link = await eventCard.findElement(
+        By.xpath('.//a[contains(@class,"eventCard--link")]')
+      );
+    } catch (error) {
+      continue;
+    }
     await scrollIntoView(link, driver);
     let url = await link.getAttribute("href");
     let dateDiv = await eventCard.findElement(By.xpath(".//time"));
@@ -27,8 +36,13 @@ export let getGroupUpcomingEvents = async (driver, groupId) => {
     let locationDiv = await eventCard.findElement(
       By.xpath('.//*[contains(@class,"venueDisplay")]')
     );
-    await scrollIntoView(locationDiv, driver);
-    let location = await locationDiv.getText();
+    let location = "Online";
+    try {
+      await scrollIntoView(locationDiv, driver);
+      location = await locationDiv.getText();
+    } catch (error) {
+      // do nothing
+    }
     let attendeesItems = await eventCard.findElements(
       By.xpath('.//ul[contains(@class,"eventCard--attendeesLink")]/li')
     );
@@ -38,6 +52,9 @@ export let getGroupUpcomingEvents = async (driver, groupId) => {
         attendeesItems.length - 1
       ].getText();
       numAttendees = parseInt(additionalAttendeesCount.substring(1)) + 3;
+    }
+    if (isNaN(numAttendees)) {
+      numAttendees = 0;
     }
     upcomingEvents.push({
       groupId,

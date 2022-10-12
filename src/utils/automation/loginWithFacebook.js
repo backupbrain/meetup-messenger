@@ -1,4 +1,4 @@
-import { By } from "selenium-webdriver";
+const { By } = require("selenium-webdriver");
 import { delaySeconds } from "../delaySeconds";
 
 export let loginWithFacebook = async (driver) => {
@@ -9,6 +9,12 @@ export let loginWithFacebook = async (driver) => {
   );
   await scrollIntoView(facebookLogin, driver);
   facebookLogin.click();
-  await delaySeconds(200, 400);
-  // TODO: wait for element to appear
+  driver.wait(() => {
+    try {
+      driver.findElement(By.xpath("//div[@data-testid='feat-home-heading']"));
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }, 200);
 };

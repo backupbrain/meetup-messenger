@@ -52,6 +52,7 @@ model Group {
   numPastEvents     Int?
   numUpcomingEvents Int?
   initialMessage    String?
+  html              String?
   activityId        String
   activity          Activity         @relation(fields: [activityId], references: [id])
   locationId        String

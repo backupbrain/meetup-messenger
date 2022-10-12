@@ -5,3 +5,14 @@ I'm Tony, a developer in Vienna who's been working on an open-source login syste
 I would love to share what I've been working on with the {groupName} group. It's actually a lot simpler to implement than it sounds.
 
 Would you be interested in me presenting this topic at your meetup?
+
+==========
+
+Hi {organizerFirstName}
+
+I'm Tony. I've been a
+
+This topic would be invaluable to your attendees because password hacking is a big pain point for anyone who uses the Internet.
+
+Industry is super competitive and its through new knowledge that people can up-level their skills.
+
