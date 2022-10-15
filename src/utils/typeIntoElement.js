@@ -10,7 +10,7 @@ export let typeIntoElement = async (element, text) => {
   }
   for (let i = 0; i < text.length; i++) {
     await element.sendKeys(text[i]);
-    await delaySeconds(0.01, 0.1);
+    await delaySeconds(0.01, 0.05);
   }
   await delaySeconds(1, 3);
 };

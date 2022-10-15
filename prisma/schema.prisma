@@ -38,29 +38,30 @@ model Location {
 }
 
 model Group {
-  id                String           @id @default(uuid())
-  url               String
-  name              String
-  description       String
-  fullDescription   String?
-  pageNumber        Int?
-  rowNumber         Int?
-  numMembers        Int
-  organizersUrl     String?
-  membersUrl        String?
-  isPublic          Boolean
-  numPastEvents     Int?
-  numUpcomingEvents Int?
-  initialMessage    String?
-  html              String?
-  activityId        String
-  activity          Activity         @relation(fields: [activityId], references: [id])
-  locationId        String
-  location          Location         @relation(fields: [locationId], references: [id])
-  organizers        GroupOrganizer[]
-  groupEvent        GroupEvent[]
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
+  id                 String           @id @default(uuid())
+  url                String
+  name               String
+  description        String
+  fullDescription    String?
+  pageNumber         Int?
+  rowNumber          Int?
+  numMembers         Int
+  organizersUrl      String?
+  membersUrl         String?
+  isPublic           Boolean
+  numPastEvents      Int?
+  numUpcomingEvents  Int?
+  initialMessage     String?
+  initialMessageSent Boolean          @default(false)
+  html               String?
+  activityId         String
+  activity           Activity         @relation(fields: [activityId], references: [id])
+  locationId         String
+  location           Location         @relation(fields: [locationId], references: [id])
+  organizers         GroupOrganizer[]
+  groupEvent         GroupEvent[]
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
 }
 
 model GroupOrganizer {

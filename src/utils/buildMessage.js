@@ -3,7 +3,7 @@ import { prisma } from "./database/client";
 export let buildMessage = async (group, messageTemplate) => {
   let organizer = undefined;
   if (group.organizers && group.organizers.length > 0) {
-    organizer = group.organizers[0].name;
+    organizer = group.organizers[0];
   } else {
     organizer = await prisma.groupOrganizer.findFirst({
       where: { groupId: group.id },
